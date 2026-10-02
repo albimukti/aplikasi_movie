@@ -1,12 +1,5 @@
-databases:
-  - name: moviehub-postgres
-    databaseName: moviehub_db
-    user: moviehub_user
-    plan: free
-    region: singapore
-
 services:
-  # 1. Backend API Service (Go Fiber Gateway)
+  # 1. Backend API Service (Go Fiber Gateway connected to Neon PostgreSQL)
   - type: web
     name: moviehub-backend-api
     runtime: docker
@@ -18,9 +11,7 @@ services:
       - key: PORT
         value: "8080"
       - key: DATABASE_URL
-        fromDatabase:
-          name: moviehub-postgres
-          property: connectionString
+        value: "postgresql://neondb_owner:npg_pKt4Ffj7GXEe@ep-morning-darkness-b4yhq372-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require"
       - key: CORS_ALLOWED_ORIGINS
         value: "*"
       - key: JWT_SECRET

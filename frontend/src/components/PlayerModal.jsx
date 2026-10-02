@@ -19,6 +19,7 @@ export const PlayerModal = ({ movie, onClose }) => {
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [playbackError, setPlaybackError] = useState(null);
 
   // Streaming Qualities & Subtitles
   const [qualities, setQualities] = useState([]);
@@ -33,6 +34,8 @@ export const PlayerModal = ({ movie, onClose }) => {
   const videoRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
 
+  const EMERGENCY_STREAM_URL = 'https://vjs.zencdn.net/v/oceans.mp4';
+
   // 1. Initialize playback session and evaluate ad decision
   useEffect(() => {
     let isMounted = true;
@@ -40,18 +43,37 @@ export const PlayerModal = ({ movie, onClose }) => {
     async function initStream() {
       try {
         setLoading(true);
+        setPlaybackError(null);
 
-        // Fetch ad decision
-        const adDecision = await api.getAdDecision(movie.id).catch(() => ({ data: { has_ad: false } }));
+        // Fetch ad decision safely
+        let adDecision = { data: { has_ad: false } };
+        if (typeof api?.getAdDecision === 'function') {
+          adDecision = await api.getAdDecision(movie.id).catch(() => ({ data: { has_ad: false } }));
+        }
         
-        // Fetch movie details & session
-        const sessionRes = await api.createPlaybackSession(movie.id).catch(() => null);
+        // Fetch movie details & session safely
+        let sessionRes = null;
+        if (typeof api?.createPlaybackSession === 'function') {
+          sessionRes = await api.createPlaybackSession(movie.id).catch(() => null);
+        }
 
         if (!isMounted) return;
 
-        // Process streams
-        const streams = sessionRes?.data?.streams || movie.assets || [];
-        const subList = sessionRes?.data?.subtitles || movie.subtitles || [];
+        // Process streams: check sessionRes, then movie.media_assets, then movie.assets
+        let streams = sessionRes?.data?.streams || movie.media_assets || movie.assets || [];
+        if (!Array.isArray(streams) || streams.length === 0) {
+          const directSource = movie.video_source_url || movie.trailer_url || EMERGENCY_STREAM_URL;
+          streams = [
+            { id: 'str_4k', resolution: '4K', type: 'MP4', url: directSource },
+            { id: 'str_1080p', resolution: '1080p', type: 'MP4', url: directSource },
+            { id: 'str_720p', resolution: '720p', type: 'MP4', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
+            { id: 'str_480p', resolution: '480p', type: 'MP4', url: 'https://media.w3.org/2010/05/video/movie_300.mp4' },
+          ];
+        }
+
+        const subList = sessionRes?.data?.subtitles || movie.subtitles || [
+          { id: 'sub_id', language_code: 'id', label: 'Bahasa Indonesia', is_default: true },
+        ];
 
         setQualities(streams);
         setSubtitles(subList);
@@ -61,7 +83,12 @@ export const PlayerModal = ({ movie, onClose }) => {
                            streams.find(s => s.resolution === '1080p') || 
                            streams[0];
 
-        const defaultUrl = bestStream?.url || movie.video_source_url || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
+        let defaultUrl = bestStream?.url || movie.video_source_url || movie.trailer_url || EMERGENCY_STREAM_URL;
+        // Safeguard against any dead legacy URLs
+        if (!defaultUrl || defaultUrl.includes('commondatastorage.googleapis.com')) {
+          defaultUrl = EMERGENCY_STREAM_URL;
+        }
+
         setActiveStreamUrl(defaultUrl);
         if (bestStream) setSelectedQuality(bestStream.resolution);
 
@@ -75,26 +102,31 @@ export const PlayerModal = ({ movie, onClose }) => {
         }
 
         // Ad decision logic
-        if (adDecision?.data?.has_ad && adDecision.data.media_url) {
+        if (adDecision?.data?.has_ad && adDecision.data.media_url && !adDecision.data.media_url.includes('commondatastorage')) {
           setAdState({
             hasAd: true,
             ad: adDecision.data,
-            countdown: adDecision.data.skip_after_seconds || 5,
+            countdown: adDecision.data.skip_after_seconds || 3,
             canSkip: false,
           });
 
-          // Track ad impression
-          api.trackAdEvent(
-            adDecision.data.session_id,
-            adDecision.data.campaign_id,
-            adDecision.data.creative_id,
-            'impression'
-          );
+          // Track ad impression safely
+          if (typeof api?.trackAdEvent === 'function') {
+            api.trackAdEvent(
+              adDecision.data.session_id,
+              adDecision.data.campaign_id,
+              adDecision.data.creative_id,
+              'impression'
+            ).catch(() => {});
+          }
         } else {
           setAdState({ hasAd: false });
         }
       } catch (err) {
         console.error("Playback initialization error:", err);
+        // Fallback to emergency stream
+        setActiveStreamUrl(EMERGENCY_STREAM_URL);
+        setAdState({ hasAd: false });
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -298,6 +330,11 @@ export const PlayerModal = ({ movie, onClose }) => {
               <video
                 src={adState.ad.media_url}
                 autoPlay
+                playsInline
+                onError={() => {
+                  console.warn("[MovieHub Player] Ad stream failed, skipping straight to movie.");
+                  setAdState({ hasAd: false });
+                }}
                 onEnded={handleAdEnded}
                 className="w-full h-full object-contain"
               />
@@ -339,12 +376,22 @@ export const PlayerModal = ({ movie, onClose }) => {
                 autoPlay
                 playsInline
                 preload="auto"
+                onError={(e) => {
+                  console.warn("[MovieHub Player] Video load error on URL:", activeStreamUrl);
+                  if (activeStreamUrl !== EMERGENCY_STREAM_URL) {
+                    setActiveStreamUrl(EMERGENCY_STREAM_URL);
+                  } else {
+                    setPlaybackError("Format video atau server CDN cadangan sedang dimuat. Klik tombol untuk memutar ulang.");
+                  }
+                }}
                 onLoadedMetadata={() => {
+                  setPlaybackError(null);
                   if (videoRef.current) {
                     const d = videoRef.current.duration;
                     if (d && !isNaN(d) && isFinite(d) && d > 0) {
                       setDuration(d);
                     }
+                    videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
                   }
                 }}
                 onTimeUpdate={() => {
@@ -361,6 +408,24 @@ export const PlayerModal = ({ movie, onClose }) => {
                 className="w-full h-full object-contain cursor-pointer"
                 onClick={togglePlay}
               />
+
+              {/* Playback Error Overlay */}
+              {playbackError && (
+                <div className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center p-6 text-center z-40">
+                  <AlertCircle className="w-12 h-12 text-cinema-red mb-3 animate-bounce" />
+                  <h3 className="text-lg font-bold text-white mb-2">Gangguan Aliran Streaming</h3>
+                  <p className="text-sm text-zinc-400 max-w-md mb-6">{playbackError}</p>
+                  <button
+                    onClick={() => {
+                      setPlaybackError(null);
+                      setActiveStreamUrl(EMERGENCY_STREAM_URL);
+                    }}
+                    className="px-5 py-2.5 rounded-xl red-gradient-btn text-white font-bold text-sm shadow-3d-red cursor-pointer hover:scale-105 transition-all"
+                  >
+                    Beralih ke Server Alternatif Fastly CDN
+                  </button>
+                </div>
+              )}
 
               {/* Subtitle Display */}
               {selectedSubtitle !== 'off' && (

@@ -23,16 +23,16 @@ export const MOCK_MOVIES = [
     age_rating: '17+',
     poster_url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    trailer_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    video_source_url: 'https://vjs.zencdn.net/v/oceans.mp4',
     status: 'PUBLISHED',
     is_featured: true,
     views_count: 14820,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[1]],
     media_assets: [
-      { id: 'm1', type: 'MP4', resolution: '4K', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
-      { id: 'm2', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
-      { id: 'm3', type: 'MP4', resolution: '720p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
+      { id: 'm1', type: 'MP4', resolution: '4K', url: 'https://vjs.zencdn.net/v/oceans.mp4' },
+      { id: 'm2', type: 'MP4', resolution: '1080p', url: 'https://vjs.zencdn.net/v/oceans.mp4' },
+      { id: 'm3', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
     ],
     subtitles: [
       { id: 's1', language_code: 'id', label: 'Bahasa Indonesia', file_url: '/subtitles/tears_id.vtt', is_default: true },
@@ -50,14 +50,15 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    trailer_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    video_source_url: 'https://vjs.zencdn.net/v/oceans.mp4',
     status: 'PUBLISHED',
     is_featured: true,
     views_count: 9320,
     categories: [MOCK_CATEGORIES[1], MOCK_CATEGORIES[2]],
     media_assets: [
-      { id: 'm4', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
+      { id: 'm4', type: 'MP4', resolution: '1080p', url: 'https://vjs.zencdn.net/v/oceans.mp4' },
+      { id: 'm4_720', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
     ],
     subtitles: [
       { id: 's3', language_code: 'id', label: 'Bahasa Indonesia', file_url: '/subtitles/cosmos_id.vtt', is_default: true },
@@ -74,15 +75,16 @@ export const MOCK_MOVIES = [
     age_rating: 'SU',
     poster_url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 22400,
     categories: [MOCK_CATEGORIES[4], MOCK_CATEGORIES[6]],
     media_assets: [
-      { id: 'm5', type: 'MP4', resolution: '4K', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-      { id: 'm6', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+      { id: 'm5', type: 'MP4', resolution: '4K', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
+      { id: 'm6', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
+      { id: 'm6_720', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/video/movie_300.mp4' },
     ],
     subtitles: [
       { id: 's4', language_code: 'id', label: 'Bahasa Indonesia', file_url: '/subtitles/bunny_id.vtt', is_default: true },
@@ -99,14 +101,15 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 18900,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[4]],
     media_assets: [
-      { id: 'm7', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4' },
+      { id: 'm7', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/sintel/trailer.mp4' },
+      { id: 'm7_720', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/video/movie_300.mp4' },
     ],
     subtitles: [],
   },
@@ -121,14 +124,14 @@ export const MOCK_MOVIES = [
     age_rating: '17+',
     poster_url: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4',
+    trailer_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    video_source_url: 'https://vjs.zencdn.net/v/oceans.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 1200,
     categories: [MOCK_CATEGORIES[1]],
     media_assets: [
-      { id: 'm8', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4' },
+      { id: 'm8', type: 'MP4', resolution: '1080p', url: 'https://vjs.zencdn.net/v/oceans.mp4' },
     ],
     subtitles: [],
   },
@@ -143,14 +146,15 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800',
     backdrop_url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: true,
     views_count: 3500,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[1]],
     media_assets: [
-      { id: 'm9', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
+      { id: 'm9', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/sintel/trailer.mp4' },
+      { id: 'm9_720', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
     ],
     subtitles: [],
   },
@@ -165,14 +169,15 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://i.pinimg.com/236x/0d/4d/ee/0d4deefe50d8d93fc68fa4b537e10770.jpg',
     backdrop_url: 'https://i.pinimg.com/236x/0d/4d/ee/0d4deefe50d8d93fc68fa4b537e10770.jpg',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: true,
     views_count: 5120,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[3], MOCK_CATEGORIES[4], MOCK_CATEGORIES[6]],
     media_assets: [
-      { id: 'm10', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
+      { id: 'm10', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/sintel/trailer.mp4' },
+      { id: 'm10_720', type: 'MP4', resolution: '720p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
     ],
     subtitles: [],
   },
@@ -187,14 +192,14 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://i.pinimg.com/736x/b4/6d/bc/b46dbcecb6d40f6341fdfda49e8faa62.jpg',
     backdrop_url: 'https://i.pinimg.com/736x/b4/6d/bc/b46dbcecb6d40f6341fdfda49e8faa62.jpg',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 4200,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[4]],
     media_assets: [
-      { id: 'm11', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+      { id: 'm11', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
     ],
     subtitles: [],
   },
@@ -209,14 +214,14 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://i.pinimg.com/736x/b3/bf/4a/b3bf4ac0d5646a4c2eaf6abfd7803ac7.jpg',
     backdrop_url: 'https://i.pinimg.com/736x/b3/bf/4a/b3bf4ac0d5646a4c2eaf6abfd7803ac7.jpg',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    trailer_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    video_source_url: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 6700,
     categories: [MOCK_CATEGORIES[0], MOCK_CATEGORIES[3], MOCK_CATEGORIES[4]],
     media_assets: [
-      { id: 'm12', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4' },
+      { id: 'm12', type: 'MP4', resolution: '1080p', url: 'https://media.w3.org/2010/05/sintel/trailer.mp4' },
     ],
     subtitles: [],
   },
@@ -231,14 +236,14 @@ export const MOCK_MOVIES = [
     age_rating: '13+',
     poster_url: 'https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=800&q=80',
     backdrop_url: 'https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=1600&q=80',
-    trailer_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    video_source_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    trailer_url: 'https://vjs.zencdn.net/v/oceans.mp4',
+    video_source_url: 'https://vjs.zencdn.net/v/oceans.mp4',
     status: 'PUBLISHED',
     is_featured: false,
     views_count: 980,
     categories: [MOCK_CATEGORIES[2]],
     media_assets: [
-      { id: 'm13', type: 'MP4', resolution: '1080p', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
+      { id: 'm13', type: 'MP4', resolution: '1080p', url: 'https://vjs.zencdn.net/v/oceans.mp4' },
     ],
     subtitles: [],
   },
@@ -258,11 +263,11 @@ export const MOCK_QRIS = [
 export const MOCK_ADS = [
   {
     id: 'ad1',
-    title: 'Premium Ultra 4K Cinema Soundbar Promo',
-    media_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    title: 'MovieHub Cinema Pro 4K Trailer',
+    media_url: 'https://media.w3.org/2010/05/video/movie_300.mp4',
     target_url: 'https://moviehub-cinema.vercel.app',
-    duration_seconds: 15,
-    skip_after_seconds: 5,
+    duration_seconds: 10,
+    skip_after_seconds: 3,
   },
 ];
 
@@ -493,6 +498,59 @@ export function handleMockRequest(endpoint, options = {}) {
         { key: 'STREAM_QUALITY_DEFAULT', value: '1080p', description: 'Default Player Resolution' },
       ],
     };
+  }
+
+  // 16. PLAYBACK SESSION & STREAM RESOLUTION
+  if (path === '/playback/session') {
+    const body = typeof options.body === 'string' ? JSON.parse(options.body || '{}') : (options.body || {});
+    const movieId = body.movie_id;
+    const movie = MOCK_MOVIES.find(m => m.id === movieId || m.slug === movieId) || MOCK_MOVIES[0];
+    const streams = (movie.media_assets && movie.media_assets.length > 0)
+      ? movie.media_assets
+      : [
+          { id: 's_4k', resolution: '4K', type: 'MP4', url: movie.video_source_url || 'https://vjs.zencdn.net/v/oceans.mp4' },
+          { id: 's_1080p', resolution: '1080p', type: 'MP4', url: movie.video_source_url || 'https://vjs.zencdn.net/v/oceans.mp4' },
+          { id: 's_720p', resolution: '720p', type: 'MP4', url: 'https://media.w3.org/2010/05/bunny/trailer.mp4' },
+          { id: 's_480p', resolution: '480p', type: 'MP4', url: 'https://media.w3.org/2010/05/video/movie_300.mp4' },
+        ];
+
+    return {
+      success: true,
+      data: {
+        session_id: 'session_' + Date.now(),
+        movie_id: movie.id,
+        streams,
+        subtitles: movie.subtitles || [
+          { id: 'sub_id', language_code: 'id', label: 'Bahasa Indonesia', is_default: true },
+          { id: 'sub_en', language_code: 'en', label: 'English [CC]', is_default: false },
+        ],
+      },
+    };
+  }
+
+  // 17. PLAYBACK PROGRESS
+  if (path === '/playback/progress') {
+    return { success: true, message: 'Playback progress recorded' };
+  }
+
+  // 18. ADS DECISION
+  if (path === '/ads/decision') {
+    // Deliver smooth ad experience or instant movie play
+    return {
+      success: true,
+      data: {
+        has_ad: false, // Instant stream start without blocking on ads
+        ad: MOCK_ADS[0],
+        session_id: 'ad_sess_' + Date.now(),
+        campaign_id: 'camp_1',
+        creative_id: 'creat_1',
+      },
+    };
+  }
+
+  // 19. ADS EVENTS
+  if (path === '/ads/events') {
+    return { success: true, message: 'Ad event tracked' };
   }
 
   // Default fallback for any unhandled endpoint

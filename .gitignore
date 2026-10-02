@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+dist/
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+backend/moviehub-server
+backend/scratch-test.exe
+
+# Environment variables
+.env
+.env.local
+
+# Uploads & Temp
+uploads/
+backend/uploads/
+*.log
+
+# IDE & OS
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

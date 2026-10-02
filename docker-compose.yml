@@ -1,0 +1,95 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: moviehub-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@ssw0rd
+      POSTGRES_DB: moviehub_db
+    ports:
+      - "5433:5432" # 5433 di host agar tidak bentrok dengan PostgreSQL lokal di port 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d moviehub_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - moviehub-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: moviehub-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - moviehub-net
+
+  backend:
+    image: moviehub-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: moviehub-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      PORT: "8080"
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_PASSWORD: P@ssw0rd
+      DB_NAME: moviehub_db
+      DB_SSLMODE: disable
+      REDIS_ADDR: redis:6379
+      REDIS_PASSWORD: ""
+      JWT_SECRET: super-secret-moviehub-jwt-token-key-2026-v1
+      JWT_ACCESS_EXPIRY: 60m
+      JWT_REFRESH_EXPIRY: 168h
+      UPLOAD_DIR: ./uploads
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - moviehub-net
+
+  frontend:
+    image: moviehub-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: moviehub-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - moviehub-net
+
+volumes:
+  pgdata:
+    name: moviehub_pgdata
+  redisdata:
+    name: moviehub_redisdata
+
+networks:
+  moviehub-net:
+    name: moviehub_network
+    driver: bridge

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.port === '3000' ? '/api/v1' : 'http://localhost:8080/api/v1');
+const API_BASE_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.port === '5173' ? 'http://localhost:8080/api/v1' : '/api/v1');
 
 class ApiClient {
   constructor() {
@@ -42,7 +42,11 @@ class ApiClient {
         headers,
       });
     } catch (err) {
-      throw new Error(`Network error: ${err.message}. Pastikan Backend Go menyala pada port 8080.`);
+      const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+      if (isVercel && !import.meta.env.VITE_API_URL) {
+        throw new Error(`Koneksi Backend Belum Terhubung: Tambahkan Environment Variable 'VITE_API_URL' di Vercel ke URL backend Render Anda.`);
+      }
+      throw new Error(`Gagal terhubung ke API backend (${err.message}). Jika backend baru dibangun di Render, tunggu ~30 detik hingga server selesai booting.`);
     }
 
     // Attempt token refresh on 401
@@ -69,6 +73,11 @@ class ApiClient {
           this.clearTokens();
         }
       }
+    }
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw new Error(`Koneksi Backend Belum Terhubung: Endpoint mengembalikan status ${response.status}. Pastikan Environment Variable 'VITE_API_URL' di Vercel sudah diset ke URL backend Render Anda.`);
     }
 
     const data = await response.json().catch(() => ({}));

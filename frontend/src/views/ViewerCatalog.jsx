@@ -267,9 +267,9 @@ export const ViewerCatalog = ({ onPlayMovie, onSelectMovie, searchQuery }) => {
           ) : (
             <div className="glass-panel p-8 sm:p-12 rounded-3xl text-center space-y-3">
               <Compass className="w-10 h-10 sm:w-12 sm:h-12 text-zinc-600 mx-auto" />
-              <h3 className="font-heading font-bold text-base sm:text-lg text-white">Tidak Ada Film Ditemukan</h3>
-              <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-                Coba ubah kata kunci pencarian atau pilih kategori film lainnya.
+              <h3 className="font-heading font-bold text-base sm:text-lg text-white">Belum Ada Film / Backend Belum Terhubung</h3>
+              <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+                Frontend MovieHub telah aktif di Vercel. Untuk menampilkan seluruh film, silakan hubungkan Backend Go & PostgreSQL di Render.com. Jika baru dinyalakan, backend cloud butuh ~30 detik untuk booting.
               </p>
             </div>
           )}

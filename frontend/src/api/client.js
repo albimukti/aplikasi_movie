@@ -23,12 +23,6 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
-    // If deployed on Vercel without an external backend URL, use the resilient cloud database
-    const isVercelWithoutBackend = !import.meta.env.VITE_API_URL && typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
-    if (isVercelWithoutBackend) {
-      return handleMockRequest(endpoint, options);
-    }
-
     const url = `${this.baseUrl}${endpoint}`;
     const headers = {
       ...(options.headers || {}),
